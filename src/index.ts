@@ -1,20 +1,10 @@
-import { Client, Events, GatewayIntentBits, Partials, User } from "discord.js";
-import { config } from './config';
-import { OnClientReady } from './actions/clientReady.event';
-import { OnGuildCreate } from './actions/guildCreate.event';
-import { OnInteractionCreate } from './actions/interactionCreate.event';
-import { OnUnhandledRejection } from './actions/unhandledRejection.event';
+import type { Bot } from './bot';
+import container from './inversify.config';
+import { TYPES } from './types';
 
-const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
-    partials: [Partials.GuildMember]
-});
-
-client.once(Events.ClientReady, async () => OnClientReady(client));
-client.on(Events.GuildCreate, OnGuildCreate);
-client.on(Events.InteractionCreate, OnInteractionCreate);
-client.on(Events.UserUpdate, async (user) => {
-    console.log(user);
-});
-client.login(config.DISCORD_TOKEN);
-process.on('unhandledRejection', OnUnhandledRejection);
+const bot = container.get<Bot>(TYPES.Bot);
+bot.listen().then(() => {
+    console.log('Logged in!');
+}).catch(error => {
+    console.error("Oh no!", error);
+})

@@ -1,14 +1,19 @@
 import dotenv from "dotenv";
+import { injectable } from 'inversify';
 
-dotenv.config();
+@injectable()
+export class Config {
+    public readonly properties: { [prop: string]: string }
+    constructor() {
+        dotenv.config();
+        const { DISCORD_TOKEN, DISCORD_CLIENT_ID } = process.env;
+        if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID) {
+            throw new Error("Missing environment variables");
+        }
+        this.properties = {
+            DISCORD_TOKEN,
+            DISCORD_CLIENT_ID,
+        }
+    }
 
-const { DISCORD_TOKEN, DISCORD_CLIENT_ID } = process.env;
-
-if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID) {
-    throw new Error("Missing environment variables");
 }
-
-export const config = {
-    DISCORD_TOKEN,
-    DISCORD_CLIENT_ID,
-};

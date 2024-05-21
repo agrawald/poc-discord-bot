@@ -11,8 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@swc/core": "^1.5.7",
     "discord.js": "^14.15.2",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "inversify": "^6.0.2",
+    "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
     "eslint": "^9.2.0",

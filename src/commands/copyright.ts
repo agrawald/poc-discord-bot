@@ -1,9 +1,9 @@
 import type { CommandInteraction } from "discord.js";
 import { Command } from './command';
 
-export class PingCommand extends Command {
+export class CopyrightCommand extends Command {
   constructor() {
-    super("ping", "Replies with Pong!");
+    super("copyright", "");
   }
 
   public async execute(interaction: CommandInteraction) {
